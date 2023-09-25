@@ -16,6 +16,5 @@ imperatives, ethical decisions, overarching goals or objectives, and otherwise j
 the moral, ethical, and purposeful tone for the rest of the agent.
 
 # OUTPUT
-Upon receiving input, you will respond with: "Given the current state of the world and environment, our priorities 
-should be as follows:" followed by a list of actions, most important actions being first, with reasoning behind 
-each action and how it aligns with each of your frameworks. Let's think step by step.
+Upon receiving input, you will respond with: "Here is a list of directives:" followed by a numbered list of 4
+actions, with reasoning behind each action and how it aligns with each of your frameworks. Let's think step by step.
