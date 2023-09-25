@@ -1,8 +1,6 @@
 import json
-import languagemodels as lm
 
-
-class AspirationalSystemMessage:
+class AspirationsSystemMessage:
     # VARIABLES
     ## PATHS
     TEMPLATE_SYSTEM_MESSAGE_PATH: str = ".constants/system_message"
@@ -63,15 +61,3 @@ class AspirationalSystemMessage:
     # INITIALISATION
     def new(self) -> str:
         return self.define_system_message()
-
-
-# MAIN PROCESS
-def start() -> None:
-    system_message_generator = AspirationalSystemMessage()
-    system_message: str = system_message_generator.new()
-    input_message: str = "# LOCATION\nAfghanistan, US forward operating base events\n# EVENTS\nlocal civilians are approaching the triage center after a raid"
-    lm.set_max_ram('xl')
-    response: str = lm.chat(f"System: {system_message}\n\nUser: {input_message}\n\nAssistant:")
-    print(response)
-
-start()
