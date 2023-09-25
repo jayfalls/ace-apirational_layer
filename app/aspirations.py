@@ -69,7 +69,6 @@ class AspirationalSystemMessage:
 def start() -> None:
     system_message_generator = AspirationalSystemMessage()
     system_message: str = system_message_generator.new()
-    print(system_message)
     input_message: str = "# LOCATION\nAfghanistan, US forward operating base events\n# EVENTS\nlocal civilians are approaching the triage center after a raid"
     lm.set_max_ram('xl')
     response: str = lm.chat(f"System: {system_message}\n\nUser: {input_message}\n\nAssistant:")
