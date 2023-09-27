@@ -3,7 +3,7 @@ import json
 class AspirationsSystemMessage:
     # VARIABLES
     ## PATHS
-    TEMPLATE_SYSTEM_MESSAGE_PATH: str = ".constants/system_message"
+    DIRECTIVES_SYSTEM_MESSAGE_PATH: str = ".constants/directives_system_message"
     DEFAULT_CONSTITUTIONS_PATH: str = ".constants/constitutions"
     ## REPLACE STRINGS
     CONSTITUTION_INDICATOR: str = "## CONSTITUTIONS"
@@ -12,8 +12,8 @@ class AspirationsSystemMessage:
 
     # LOAD INFO
     ## File Loading
-    def load_template_message(self) -> str:
-        with open(self.TEMPLATE_SYSTEM_MESSAGE_PATH, "r") as template_message_file:
+    def load_template_message(self, template_path: str) -> str:
+        with open(template_path, "r") as template_message_file:
             return template_message_file.read()
     
     def load_default_constitutions(self) -> dict:
@@ -45,17 +45,17 @@ class AspirationsSystemMessage:
         constitutions_string: str = self.dict_to_str(constitutions)
         return system_message.replace(self.CONSTITUTION_INDICATOR, constitutions_string, 1)
 
-    def embed_mission(self, system_message: str) -> str:
-        mission_title, mission_objective = self.get_mission()
+    def embed_mission(self, system_message: str, mission_title: str, mission_objective: str) -> str:
         system_message = system_message.replace(self.MISSION_TITLE_INDICATOR, mission_title, 1)
         system_message = system_message.replace(self.MISSION_OBJECTIVE_INDICATOR, mission_objective, 1)
         return system_message
 
     # MAIN PROCESS
     def define_system_message(self) -> str:
-        system_message: str = self.load_template_message()
+        system_message: str = self.load_template_message(self.DIRECTIVES_SYSTEM_MESSAGE_PATH)
+        mission_title, mission_objective = self.get_mission()
         system_message = self.embed_constitutions(system_message)
-        system_message = self.embed_mission(system_message)
+        system_message = self.embed_mission(system_message, mission_title, mission_objective)
         return system_message
     
     # INITIALISATION

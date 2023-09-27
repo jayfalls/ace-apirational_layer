@@ -1,5 +1,6 @@
 from components.sysmessage_generator import AspirationsSystemMessage
 import languagemodels as aspiration_lm
+import re
 
 
 # INITIALISATION
@@ -14,15 +15,27 @@ def new_system_message() -> str:
 
 
 # INFERENCE
-def aspirational_commands(system_message: str, input_message: str) -> str:
+def process_system_message(system_message: str, input_message: str) -> str:
     response: str = aspiration_lm.chat(f"System: {system_message}\n\nUser: {input_message}\n\nAssistant:")
     return response
+
+def split_directives(directives_string: str) -> list:
+    split_pattern = r'(?<=\D)(?=\d)'
+    directives: list = re.split(split_pattern, directives_string)
+    return directives
+
+def embue_principles(principles_sysmessage: str, directives: list) -> str:
+    for directive in directives:
+        full_directive: str = process_system_message(principles_sysmessage, directive)
+        print(full_directive)
 
 
 # TESTING
 def test() -> None:
-    system_message: str = new_system_message()
+    directive_sysmessage: str = new_system_message()
     input_message: str = "# LOCATION\nAfghanistan, US forward operating base events\n# EVENTS\nlocal civilians are approaching the triage center after a raid"
-    print(aspirational_commands(system_message, input_message))
+    for _ in range(6):
+        directives: str = process_system_message(directive_sysmessage, input_message)
+        print(directives)
 
 test()
